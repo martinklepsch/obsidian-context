@@ -22,17 +22,20 @@
     (datetime/calculate-past-datetime (Integer/parseInt amount) unit)))
 
 (defn file-for-wikilink [wikilink]
-  (let [wikilink (if (str/starts-with? wikilink "[[")
-                   (re-find #"^\[\[(.+)\]\]$" wikilink)
-                   wikilink)
-        [filename link-title] (str/split wikilink #"\|")
-        obsidian-dir (fs/file obsidian-dir)
-        file-paths (fs/glob obsidian-dir (str "**/" filename ".md"))]
+  (try
+    (let [wikilink (if (str/starts-with? wikilink "[[")
+                     (re-find #"^\[\[(.+)\]\]$" wikilink)
+                     wikilink)
+          [filename link-title] (str/split wikilink #"\|")
+          obsidian-dir (fs/file obsidian-dir)
+          file-paths (fs/glob obsidian-dir (str "**/" filename ".md"))]
     ;; [filename (first file-paths)]
     ;; (prn [filename wikilink link-title (boolean (first file-paths))])
-    (some-> file-paths
-            (first)
-            (fs/file))))
+      (some-> file-paths
+              (first)
+              (fs/file)))
+    (catch Exception _
+      nil)))
 
 (defn find-recent-files [opts]
   (let [lookback (parse-lookback (:lookback opts))]
