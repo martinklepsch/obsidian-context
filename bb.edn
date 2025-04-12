@@ -1,0 +1,2 @@
+{:paths ["src"]
+ :bbin/bin {obsidian-context {:main-opts ["-m" "obs-ctx.core"]}}}
