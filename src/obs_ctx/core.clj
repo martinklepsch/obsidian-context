@@ -94,7 +94,9 @@
   (println (cli/format-opts recent-links-cli-spec))
 
   (println "\n\npack options:\n")
-  (println (cli/format-opts pack-cli-spec)))
+  (println (cli/format-opts pack-cli-spec))
+
+  (println "\n\nOpen an issue on GitHub: https://github.com/martinklepsch/obsidian-context"))
 
 (defn help-wrapper [cmd-fn]
   (fn [{:keys [opts] :as m}]
