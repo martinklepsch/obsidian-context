@@ -2,7 +2,7 @@
 
 `obsidian-context` is a CLI script to query and export content from your Obsidian vault for use with LLMs.
 
-It can list `recent-links` (recently modified files) and `pack` your files (a la [repomix](https://repomix.com/) into a single context blob.
+It can list `recent-links` (recently modified files) and `pack` your files (a la [repomix](https://repomix.com/)) into a single context blob.
 
 ## Installation
 
@@ -10,6 +10,8 @@ It can list `recent-links` (recently modified files) and `pack` your files (a la
 brew install babashka/brew/bbin
 bbin install io.github.martinklepsch/obsidian-context
 ```
+
+`obsidian-context` is a [babashka](https://github.com/babashka/babashka) program, using [bbin](https://github.com/babashka/bbin) for distribution.
 
 ## Usage
 

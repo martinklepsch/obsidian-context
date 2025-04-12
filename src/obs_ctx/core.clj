@@ -23,6 +23,7 @@
 (defn recent-links
   "Find most frequently used wikilinks in recent files"
   [{:keys [opts]}]
+  (util/preflight!)
   (let [opts (merge {:lookback util/default-lookback
                      :limit util/default-limit}
                     opts)
@@ -85,6 +86,7 @@
   "Handler for the help command or default case"
   [_]
   (println "Usage: obsidian-context <subcommand> [options]\n")
+  (println "  $OBSIDIAN_DIR must point to an Obsidian vault\n\n")
   (println "Subcommands:")
   (println "  recent-links   Find most frequently used wikilinks in recent files")
   (println "  pack            Combine recent files into a big blob with xml tags (a la repopack)")

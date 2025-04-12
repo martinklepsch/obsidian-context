@@ -5,6 +5,12 @@
 
 (def default-lookback "30d")
 (def default-limit 100)
+(def obsidian-dir (System/getenv "OBSIDIAN_DIR"))
+
+(defn preflight! []
+  (when (empty? obsidian-dir)
+    (println "Error: Obsidian directory not found. Make sure to provide $OBSIDIAN_DIR environment variable.\n\n   export OBSIDIAN_DIR=/path/to/obsidian-vault")
+    (System/exit 1)))
 
 (defn validate-lookback [lookback]
   (let [lookback-map {:d :day :m :month :y :year}
@@ -20,7 +26,7 @@
                    (re-find #"^\[\[(.+)\]\]$" wikilink)
                    wikilink)
         [filename link-title] (str/split wikilink #"\|")
-        obsidian-dir (fs/file (System/getenv "OBSIDIAN_DIR"))
+        obsidian-dir (fs/file obsidian-dir)
         file-paths (fs/glob obsidian-dir (str "**/" filename ".md"))]
     ;; [filename (first file-paths)]
     ;; (prn [filename wikilink link-title (boolean (first file-paths))])
@@ -29,8 +35,7 @@
             (fs/file))))
 
 (defn find-recent-files [opts]
-  (let [obsidian-dir (System/getenv "OBSIDIAN_DIR")
-        lookback (parse-lookback (:lookback opts))]
+  (let [lookback (parse-lookback (:lookback opts))]
     (->> (fs/glob obsidian-dir "**/*.md")
          (map fs/file)
          (filter #(.isAfter (.toInstant (fs/last-modified-time %)) lookback))
@@ -44,7 +49,7 @@
     (filter #(.isAfter (.toInstant (fs/last-modified-time %)) lookback) files)))
 
 (comment
-  ;; = str - Example 1 = 
+  ;; = str - Example 1 =
 
   user=> "some string"
   "some string"
@@ -72,8 +77,7 @@
   user=> (str [1 2 3])
   "[1 2 3]"
 
-
-  ;; See also:
+;; See also:
   clojure.core/pr
   clojure.core/prn
   clojure.core/pr-str

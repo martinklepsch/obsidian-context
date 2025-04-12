@@ -46,6 +46,7 @@
 (defn pack-cmd
   "Handler for the pack command - creates a bundle of multiple files"
   [{:keys [opts]}]
+  (util/preflight!)
   (let [opts (merge {:lookback util/default-lookback
                      :limit util/default-limit}
                     opts)
