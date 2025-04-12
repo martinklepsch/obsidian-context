@@ -2,7 +2,9 @@
 
 `obsidian-context` is a CLI script to query and export content from your Obsidian vault for use with LLMs.
 
-It can list `recent-links` (recently modified files) and `pack` your files (a la [repomix](https://repomix.com/)) into a single context blob. For now it's meant to support two main workflows:
+It can list `recent-links` (recently modified files) and `pack` your files (a la [repomix](https://repomix.com/)) into a single context blob.
+
+For now it's meant to support two main workflows:
 
 1. **Pack Files**: Easily pack files I edited this week/month for use with LLMs.
 2. **List Links**: Get a list of frequently used links that I might want to consider as options when auto-tagging content in my vault / adding new content.
